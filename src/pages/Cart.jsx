@@ -6,7 +6,7 @@ const DELIVERY_FEE = 30;
 const GST_RATE = 0.12;
 
 const Cart = () => {
-  const { cart, removeOneFromCart, removeFromCart } = useCart();
+  const { cart, removeOneFromCart, removeFromCart, addToCart } = useCart();
 
   const getSubtotal = () => {
     return cart.reduce((total, item) => total + item.price * item.quantity, 0);
@@ -50,21 +50,27 @@ const Cart = () => {
                   </div>
                   <div>
                     <h4 className="font-semibold">{item.name}</h4>
-                    <p className="text-sm text-gray-500">
-                      ₹{item.price} × {item.quantity}
-                    </p>
-                    <div className="mt-1 flex gap-2">
+                    <p className="text-sm text-gray-500">₹{item.price}</p>
+
+                    <div className="flex items-center gap-2 mt-1">
                       <button
                         onClick={() => removeOneFromCart(item.id)}
-                        className="text-xs px-2 py-1 border rounded hover:bg-gray-100"
+                        className="px-2 py-1 text-xl font-bold bg-gray-200 hover:bg-gray-300 rounded"
                       >
-                        Remove
+                        −
+                      </button>
+                      <span className="px-3">{item.quantity}</span>
+                      <button
+                        onClick={() => addToCart(item)}
+                        className="px-2 py-1 text-xl font-bold bg-gray-200 hover:bg-gray-300 rounded"
+                      >
+                        +
                       </button>
                       <button
                         onClick={() => removeFromCart(item.id)}
-                        className="text-xs px-2 py-1 border rounded text-red-500 hover:bg-red-100"
+                        className="ml-4 text-xs px-2 py-1 border rounded text-red-500 hover:bg-red-100"
                       >
-                        Remove All
+                        Remove
                       </button>
                     </div>
                   </div>
